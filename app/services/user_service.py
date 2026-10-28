@@ -1,6 +1,6 @@
-from app.models.users import RegistrationData
+from app.models.user import RegistrationData
 from app.database.user_queries import user_exists, insert_user
-from app.errors.users_erros import UsernameAlreadyExistsError
+from app.errors.user_errors import UsernameAlreadyExistsError
 
 from argon2 import PasswordHasher
 
@@ -9,7 +9,7 @@ password_hasher = PasswordHasher()
 def create_user(userdata : RegistrationData): 
 
     #check if username already exists 
-    if user_exists(userdata.username):   #définie dans user_queries
+    if user_exists(userdata.username):  
         raise UsernameAlreadyExistsError
     username = userdata.username
 
@@ -17,15 +17,13 @@ def create_user(userdata : RegistrationData):
     password_hash = _hash_password(userdata.password)
 
     #insert username and hashpassword in miniforge.db and get user_id 
-    user_id = insert_user(username,password_hash)   #définie dans user_queries 
+    user_id = insert_user(username,password_hash) 
 
-  
     return user_id 
 
 
 
-def _hash_password(password : str): 
+def _hash_password(password : str):
 
     password_hash = password_hasher.hash(password)
     return password_hash
-  
