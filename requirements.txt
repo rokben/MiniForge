@@ -1,0 +1,2 @@
+pydantic==2.14.1
+argon2-cffi==25.1.0
