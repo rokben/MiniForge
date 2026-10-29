@@ -10,7 +10,6 @@ create_account = st.button(label="Create your account")
 
  
 if create_account : 
-
     try : 
         response_create_account = requests.post(
             f"{BASE_URL}/auth/signup", 
