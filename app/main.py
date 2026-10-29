@@ -5,6 +5,8 @@ from .database.database import init_db
 
 
 from .routes.auth import router_auth
+from .handlers.validation_handler import validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 
 @asynccontextmanager
 async def lifespan(app: FastAPI): 
@@ -18,4 +20,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+app.add_exception_handler(RequestValidationError,validation_exception_handler)
+
 app.include_router(router_auth)
+
+
