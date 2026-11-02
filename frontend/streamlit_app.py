@@ -1,38 +1,35 @@
 import streamlit as st 
-import requests
 
-BASE_URL = "http://127.0.0.1:8000"
+from streamlit_auth import show_signup, show_signin 
+
+default_state = {
+    "page":"Home",
+    "session_id":None,
+    "session_active" : False
+}
+
+for param, default_val in default_state.items(): 
+    if param not in st.session_state: 
+        st.session_state[param]= default_val
 
 st.header("MiniForge")
-username = st.text_input(label="Username")
-password = st.text_input(label="Password",type="password")
-create_account = st.button(label="Create your account")
+if st.session_state["page"] == "Home" : 
+    sign_up = st.button(label="Create your account")
+    log_in = st.button(label="Log in")
 
- 
-if create_account : 
-    try : 
-        response_create_account = requests.post(
-            f"{BASE_URL}/auth/signup", 
-            json= {
-                "username" : username, 
-                "password" : password
+    if sign_up : 
+        st.session_state["page"] = "SignUp"
+        st.rerun()
 
-            }
-        )
-    except requests.exceptions.RequestException: 
-        st.error("Unable to connect to MiniForge server")
+    if log_in : 
+        st.session_state["page"] = "SignIn"
+        st.rerun()
 
-    else : 
-    
-        if response_create_account.status_code == 422:
-            for error_type, error_message in response_create_account.json().get("detail").items(): 
-                st.error(f"{error_type} : {error_message}")
+if st.session_state["page"] == "SignUp" : 
+    show_signup()
 
-        elif response_create_account.status_code == 409 : 
-            st.error("Username Already Exists")
+elif st.session_state["page"] == "SignIn" : 
+    show_signin()
 
-        elif response_create_account.status_code == 201: 
-            st.success("Account created successfully")
 
-        else : 
-            st.error("An unexpected error occurred")
+
