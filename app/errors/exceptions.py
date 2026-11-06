@@ -5,3 +5,9 @@ class UsernameAlreadyExistsError(Exception):
 
 class InvalidCredentialsError(Exception):
     pass
+
+class InvalidSession (Exception): 
+    pass 
+
+class ExpiredSession(Exception): 
+    pass 

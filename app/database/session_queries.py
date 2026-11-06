@@ -28,6 +28,20 @@ def session_exists(user_id : int ) -> bool:
             )
             return cur.fetchone() is not None 
 
+def get_session(session_id :str ): 
+    with closing(get_connection()) as connection : 
+                    cur = connection.execute (
+                        """
+                        SELECT user_id,expires_at
+                        FROM sessions
+                        WHERE session_id =?;
+                        """, 
+                        (session_id,)
+                    )
+                    row = cur.fetchone()
+    
+    return row
+     
 def get_expires_at(user_id : int): 
     with closing(get_connection()) as connection : 
                 cur = connection.execute (

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
-from app.models.user import RegistrationData, LoginData
-from app.errors.user_errors import UsernameAlreadyExistsError, InvalidCredentialsError
+from app.models.models import RegistrationData, LoginData
+from app.errors.exceptions import UsernameAlreadyExistsError, InvalidCredentialsError
 from app.services.user_service import create_user, authenticate_user
 from app.services.session_services import user_has_active_session, create_session, delete_session
 
@@ -22,7 +22,6 @@ def signup(userdata : RegistrationData):
 
 @router_auth.post("/auth/signin",status_code=200)
 def signin(userdata: LoginData): 
-
 
     # Verify username/password
     username = userdata.username

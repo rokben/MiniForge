@@ -11,3 +11,12 @@ class LoginData(BaseModel) :
     username : str 
     password : str 
     replace_session : bool = False
+
+
+class RepositoryData(BaseModel):
+    name : str = Field(min_length = 3, max_length = 100, pattern = r"^[a-zA-Z0-9_-]+$") 
+    description : str | None = None 
+
+
+
+
