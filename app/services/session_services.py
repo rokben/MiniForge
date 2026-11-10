@@ -43,7 +43,7 @@ def validate_session(session_id : str) :
     user_id, expires_at = session 
     expires_at = datetime.fromisoformat(expires_at)
 
-        #Expired session, user has to log in again 
+    #Expired session, user has to log in again 
     if expires_at <= datetime.now(): 
         delete_session(user_id) 
         raise ExpiredSession 

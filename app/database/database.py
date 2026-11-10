@@ -34,3 +34,15 @@ def init_db():
                     );
             """
             )
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS repositories(
+                repo_id INTEGER PRIMARY KEY,
+                user_id INTEGER NOT NULL, 
+                repo_name TEXT NOT NULL, 
+                repo_description TEXT, 
+                FOREIGN KEY(user_id) REFERENCES users(user_id), 
+                UNIQUE(user_id, repo_name)
+                ); 
+            """
+            )

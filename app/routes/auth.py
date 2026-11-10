@@ -18,8 +18,6 @@ def signup(userdata : RegistrationData):
         raise HTTPException(status_code=409, detail="Username Already Exists")
 
 
-
-
 @router_auth.post("/auth/signin",status_code=200)
 def signin(userdata: LoginData): 
 

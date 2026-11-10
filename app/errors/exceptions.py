@@ -11,3 +11,9 @@ class InvalidSession (Exception):
 
 class ExpiredSession(Exception): 
     pass 
+
+class RepositoryAlreadyExistsError(Exception):
+    pass
+
+class RepositoryCreationError(Exception): 
+    pass

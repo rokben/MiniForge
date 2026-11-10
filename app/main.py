@@ -5,6 +5,7 @@ from .database.database import init_db
 
 
 from .routes.auth import router_auth
+from .routes.repositories import router_repositories
 from .handlers.validation_handler import validation_exception_handler
 from fastapi.exceptions import RequestValidationError
 
@@ -23,5 +24,5 @@ app = FastAPI(
 app.add_exception_handler(RequestValidationError,validation_exception_handler)
 
 app.include_router(router_auth)
-
+app.include_router(router_repositories)
 
