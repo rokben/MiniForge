@@ -1,6 +1,7 @@
 import streamlit as st 
 
 from streamlit_auth import show_signup, show_signin 
+from streamlit_dashboard import show_dashboard
 
 default_state = {
     "page":"Home",
@@ -13,7 +14,11 @@ for param, default_val in default_state.items():
         st.session_state[param]= default_val
 
 st.header("MiniForge")
-if st.session_state["page"] == "Home" : 
+
+if st.session_state["session_id"]: 
+    show_dashboard()
+
+elif st.session_state["page"] == "Home" : 
     sign_up = st.button(label="Create your account")
     log_in = st.button(label="Log in")
 
@@ -25,11 +30,8 @@ if st.session_state["page"] == "Home" :
         st.session_state["page"] = "SignIn"
         st.rerun()
 
-if st.session_state["page"] == "SignUp" : 
+elif st.session_state["page"] == "SignUp" : 
     show_signup()
 
 elif st.session_state["page"] == "SignIn" : 
     show_signin()
-
-
-

@@ -1,8 +1,7 @@
 import streamlit as st
 import requests
 
-
-BASE_URL = "http://127.0.0.1:8000"
+from config import BASE_URL
 
 def show_signup(): 
     username = st.text_input(label="Username")
@@ -23,7 +22,6 @@ def show_signup():
             st.error("Unable to connect to MiniForge server")
 
         else : 
-        
             if response_create_account.status_code == 422:
                 for error_type, error_message in response_create_account.json().get("detail").items(): 
                     st.error(f"{error_type} : {error_message}")
@@ -73,6 +71,7 @@ def show_signin():
             elif response_log_in.status_code == 200: 
                 st.success("Connected successfully")
                 st.session_state["session_id"] = response_log_in.json()["session_id"]
+                st.rerun()
 
             else : 
                 st.error("An unexpected error occurred")
@@ -102,6 +101,7 @@ def show_signin():
                     st.success("Connected successfully")
                     st.session_state["session_id"] = response_log_in.json()["session_id"]
                     st.session_state["session_active"] = False
+                    st.rerun()
     
                 else : 
                     st.error("An unexpected error occurred")
